@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Admin - Mifta Motor Sport</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/admin-dashboard.css') }}">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" href="<?php echo e(asset('css/admin-dashboard.css')); ?>">
+    <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 </head>
 <body>
     <div class="dashboard-container">
@@ -52,33 +52,31 @@
                     <div class="notification-badge">
                     </div>
                     <div class="user-profile">
-                        <span>{{ Auth::user()->nama ?? 'Admin' }}</span>
+                        <span><?php echo e(Auth::user()->nama ?? 'Admin'); ?></span>
                     </div>
                 </div>
             </header>
 
-
-        <div>
             <!-- Stats Cards -->
             <div class="stats-section">
                 <div class="stat-card">
                     <div class="stat-content">
                         <div class="stat-label">Total Testimonials</div>
-                        <div class="stat-value">{{ $testimoniCount }}</div>
+                        <div class="stat-value"><?php echo e($testimoniCount); ?></div>
                     </div>
                     <div class="stat-icon blue">👥</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-content">
                         <div class="stat-label">Active Product</div>
-                        <div class="stat-value">{{ $produkCount }}</div>
+                        <div class="stat-value"><?php echo e($produkCount); ?></div>
                     </div>
                     <div class="stat-icon green">📦</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-content">
                         <div class="stat-label">New Bookings</div>
-                        <div class="stat-value">{{ $serviceCount }}</div>
+                        <div class="stat-value"><?php echo e($serviceCount); ?></div>
                     </div>
                     <div class="stat-icon yellow">📅</div>
                 </div>
@@ -93,26 +91,26 @@
                         <a href="/admin/testimoni" class="btn btn-primary">View All</a>
                     </div>
                     <div class="testimonial-list">
-                        @forelse($recentTestimoni->take(2) as $testimoni)
+                        <?php $__empty_1 = true; $__currentLoopData = $recentTestimoni->take(2); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $testimoni): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                         <div class="testimonial-item">
-                         <img src="https://ui-avatars.com/api/?name={{ Auth::user()->nama }}&background=eeeeee&color=141414&size=128" alt="Profile" class="header-profile">
+                         <img src="https://ui-avatars.com/api/?name=<?php echo e(Auth::user()->nama); ?>&background=eeeeee&color=141414&size=128" alt="Profile" class="header-profile">
                             <div class="testimonial-content">
-                                <div class="testimonial-name">{{ $testimoni->pengguna->nama ?? 'Anonymous' }}</div>
-                                <div class="testimonial-text">"{{ Str::limit($testimoni->isi_testimoni, 50) }}"</div>
+                                <div class="testimonial-name"><?php echo e($testimoni->pengguna->nama ?? 'Anonymous'); ?></div>
+                                <div class="testimonial-text">"<?php echo e(Str::limit($testimoni->isi_testimoni, 50)); ?>"</div>
                                 <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
                             </div>
                             <div class="testimonial-actions">
-                                <button class="btn-icon delete" onclick="deleteTestimoni({{ $testimoni->id_testimoni }})">🗑️</button>
+                                <button class="btn-icon delete" onclick="deleteTestimoni(<?php echo e($testimoni->id_testimoni); ?>)">🗑️</button>
                             </div>
                         </div>
-                        @empty
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                         <div class="empty-state">
                             <p>No testimonials yet</p>
                         </div>
-                        @endforelse
+                        <?php endif; ?>
                     </div>
                 </div>
-        </div>
+
                 <!-- Product Inventory -->
                 <div class="content-section">
                     <div class="section-header">
@@ -120,24 +118,24 @@
                         <a href="/admin/produk" class="btn btn-success">View All</a>
                     </div>
                     <div class="product-list">
-                        @forelse($recentProduk->take(2) as $produk)
+                        <?php $__empty_1 = true; $__currentLoopData = $recentProduk->take(2); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $produk): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                         <div class="product-item">
-                            <img src="{{ asset('storage/' . $produk->gambar) ?? 'https://via.placeholder.com/50x50' }}" alt="{{ $produk->nama_produk }}" class="product-image">
+                            <img src="<?php echo e(asset('storage/' . $produk->gambar) ?? 'https://via.placeholder.com/50x50'); ?>" alt="<?php echo e($produk->nama_produk); ?>" class="product-image">
                             <div class="product-content">
-                                <div class="product-name">{{ $produk->nama_produk }}</div>
-                                <div class="product-category">{{ $produk->deskripsi ?? 'Product' }}</div>
-                                <div class="product-price">Rp {{ number_format($produk->harga, 0, ',', '.') }}</div>
+                                <div class="product-name"><?php echo e($produk->nama_produk); ?></div>
+                                <div class="product-category"><?php echo e($produk->deskripsi ?? 'Product'); ?></div>
+                                <div class="product-price">Rp <?php echo e(number_format($produk->harga, 0, ',', '.')); ?></div>
                             </div>
                             <div class="product-actions">
                                 <button class="btn-icon">✏️</button>
                                 <button class="btn-icon delete">🗑️</button>
                             </div>
                         </div>
-                        @empty
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                         <div class="empty-state">
                             <p>No products yet</p>
                         </div>
-                        @endforelse
+                        <?php endif; ?>
                     </div>
                 </div>
 
@@ -148,24 +146,24 @@
                         <a href="/admin/booking" class="btn btn-warning">View All</a>
                     </div>
                     <div class="booking-list">
-                        @forelse($recentServices->take(2) as $service)
+                        <?php $__empty_1 = true; $__currentLoopData = $recentServices->take(2); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $service): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                         <div class="booking-item">
-                            <img src="https://ui-avatars.com/api/?name={{ Auth::user()->nama }}&background=eeeeee&color=141414&size=128" alt="Profile" class="header-profile">
+                            <img src="https://ui-avatars.com/api/?name=<?php echo e(Auth::user()->nama); ?>&background=eeeeee&color=141414&size=128" alt="Profile" class="header-profile">
                             <div class="booking-content">
-                                <div class="booking-name">{{ $service->pengguna->nama ?? 'Anonymous' }}</div>
-                                <div class="booking-service">{{ $service->type_service ?? 'Service' }} - {{ $service->tanggal_booking ?? 'No Date' }}</div>
-                                <span class="status-badge {{ strtolower($service->status ?? 'pending') }}">{{ $service->status ?? 'Pending' }}</span>
+                                <div class="booking-name"><?php echo e($service->pengguna->nama ?? 'Anonymous'); ?></div>
+                                <div class="booking-service"><?php echo e($service->type_service ?? 'Service'); ?> - <?php echo e($service->tanggal_booking ?? 'No Date'); ?></div>
+                                <span class="status-badge <?php echo e(strtolower($service->status ?? 'pending')); ?>"><?php echo e($service->status ?? 'Pending'); ?></span>
                             </div>
                             <div class="booking-actions">
                                 <button class="btn-icon">✏️</button>
                                 <button class="btn-icon delete">🗑️</button>
                             </div>
                         </div>
-                        @empty
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                         <div class="empty-state">
                             <p>No bookings yet</p>
                         </div>
-                        @endforelse
+                        <?php endif; ?>
                     </div>
                 </div>
 
@@ -176,23 +174,23 @@
                         <a href="/admin/berita" class="btn btn-purple">View All</a>
                     </div>
                     <div class="news-list">
-                        @forelse($recentBerita->take(2) as $berita)
+                        <?php $__empty_1 = true; $__currentLoopData = $recentBerita->take(2); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $berita): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                         <div class="news-item">
                             <div class="news-content">
-                                <div class="news-title">{{ $berita->judul }}</div>
-                                <div class="news-description">{{ Str::limit($berita->konten, 50) }}</div>
+                                <div class="news-title"><?php echo e($berita->judul); ?></div>
+                                <div class="news-description"><?php echo e(Str::limit($berita->konten, 50)); ?></div>
                                 <span class="status-badge published">Published</span>
                             </div>
                             <div class="news-actions">
-                                <button class="btn-icon" onclick="editBerita({{ $berita->id_berita }})">✏️</button>
+                                <button class="btn-icon" onclick="editBerita(<?php echo e($berita->id_berita); ?>)">✏️</button>
                                 <button class="btn-icon delete">🗑️</button>
                             </div>
                         </div>
-                        @empty
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                         <div class="empty-state">
                             <p>No news yet</p>
                         </div>
-                        @endforelse
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -258,4 +256,4 @@
         }
     </script>
 </body>
-</html>
+</html><?php /**PATH P:\Coding Files Projects\mms-project-repo\resources\views/admin-dashboard.blade.php ENDPATH**/ ?>

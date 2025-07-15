@@ -12,6 +12,7 @@ class TestimoniController extends Controller
         try {
             $testimoni = Testimoni::all();
             
+            
             return response()->json([
                 'message' => 'Testimoni sukses diambil',
                 'testimoni' => $testimoni 
