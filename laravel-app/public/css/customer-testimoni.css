@@ -1,0 +1,24 @@
+/* Customer Testimoni Page Styles */
+@import url('customer-dashboard.css');
+
+.testimoni-section {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    min-height: 300px;
+}
+.testimoni-section h2 {
+    font-family: 'Poppins', sans-serif;
+    color: #141414;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+.testimoni-section p {
+    font-family: 'Poppins', sans-serif;
+    color: #555;
+    font-size: 1.1rem;
+} 
