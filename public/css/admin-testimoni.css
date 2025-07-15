@@ -1,0 +1,6 @@
+@import "/public/css/sidebar.css";
+
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
